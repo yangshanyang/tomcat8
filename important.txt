@@ -1,0 +1,2 @@
+1、生成test.keystore的命令脚本
+keytool -genkey -alias testkey -keyalg RSA -keystore  /Users/shanyangyang/software/apache-tomcat-8.5.57-src/test.keystore
