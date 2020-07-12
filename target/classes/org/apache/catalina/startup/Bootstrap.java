@@ -253,6 +253,8 @@ public final class Bootstrap {
      */
     public void init() throws Exception {
 
+        System.out.println("====BootStrap init====");
+
         initClassLoaders();
 
         Thread.currentThread().setContextClassLoader(catalinaLoader);
@@ -304,6 +306,7 @@ public final class Bootstrap {
         if (log.isDebugEnabled()) {
             log.debug("Calling startup class " + method);
         }
+        //调用catalinaDaemon的load方法
         method.invoke(catalinaDaemon, param);
     }
 
@@ -342,7 +345,7 @@ public final class Bootstrap {
         if (catalinaDaemon == null) {
             init();
         }
-
+       //通过反射调用catalina的start方法
         Method method = catalinaDaemon.getClass().getMethod("start", (Class [])null);
         method.invoke(catalinaDaemon, (Object [])null);
     }
@@ -438,12 +441,14 @@ public final class Bootstrap {
      * @param args Command line arguments to be processed
      */
     public static void main(String args[]) {
+        System.out.println("====Bootstap main start====");
 
         synchronized (daemonLock) {
             if (daemon == null) {
                 // Don't set daemon until init() has completed
                 Bootstrap bootstrap = new Bootstrap();
                 try {
+                    //创建catalina对象
                     bootstrap.init();
                 } catch (Throwable t) {
                     handleThrowable(t);

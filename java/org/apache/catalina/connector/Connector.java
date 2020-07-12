@@ -996,7 +996,7 @@ public class Connector extends LifecycleMBeanBase {
 
         super.initInternal();
 
-        // Initialize adapter
+        // 初始化 adapter，http与servlethttp转换，适配器模式
         adapter = new CoyoteAdapter(this);
         protocolHandler.setAdapter(adapter);
 
